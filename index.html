@@ -6,22 +6,86 @@
   </head>
   <body>
 
-    <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of">
-      <p>Both <code>for...in</code> and <code>for...of</code> statements iterate
-      over something. The main difference between them is in what they iterate
-      over. </p>
+    <h1>JavaScript Loops Using <code>for...of</code> and <code>for...in</code>.</h1>
 
-      <p>The <code>for...in</code> statement iterates over the <strong>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">
-        enumerable properties</a></strong> of an object, in an arbitrary order.
+    <p>Earlier this week I was working on a coding problem that involved looping through
+      characters in strings. I wanted to loop over all the characters in two strings
+      to determine whether they were anagrams. This kind of task is common in
+      technical interview situations.</p>
+
+      <p>This made me take a closer look at Javascript for loops. I was especially
+      interested in the <code>for...of</code> and <code>for...in</code> loops,
+      so I wrote this post to share what I found out.</p>
+
+    <h2>Looping Through Elements in a String using <code>for...of</code></h2>
+
+      <p>So, what's a good way to accomplish this goal? One approach is to use a
+        traditional for loop:</p>
+
+        <blockquote>
+          <code>
+              for (let i = 0; i < string.length; i++) {console.log(string.charAt(i))}
+          </code>
+        </blockquote>
+
+      <p>This kind of for loop has been around in Javascript since its inception
+      twenty years ago. However, ES6 introduced some spiffy new syntax.</p>
+
+      <p>Since the introduction of ES6, you can use a <code>for...of</code> loop:</p>
+
+      <blockquote >
+        <code>for (character of string) {console.log(character)}</code>
+      </blockquote>
+
+      <p>Isn't the <code>for...of</code> statement much easier to read than the traditional
+      for loop! It also requires less typing, which means less room for error.</p>
+
+    <h2>Are <code>for...of</code> and <code>for...in</code> Interchangeable?</h2>
+
+      <p>TLDR: No, they iterate over different things.</p>
+
+      <p>According to MDN:</p>
+
+      <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of">
+
+        <p>The <code>for...of</code> statement iterates over values that the
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">
+          iterable object</a> defines to be iterated over.</p>
+
+        <p>The <code>for...in</code> statement iterates over the
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">
+          enumerable properties</a> of an object, in an arbitrary order.
+        </p>
+
+      </blockquote>
+
+    <h2>What is an <em>iterable object</em>?</h2>
+
+      <p>Definition:<p>
+        <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">
+        An object is an <strong>iterable</strong> if it defines its
+        iteration behavior, such as what values are looped over in a <code>for...of</code>
+        construct.
+        </blockquote>
+
+      <p>Here are Javascript's built-in Iterables:
+          <ul>
+            <li>String</li>
+            <li>Array</li>
+            <li>TypedArray</li>
+            <li>Map</li>
+            <li>Set</li>
+          </ul>
       </p>
 
-      <p>The <code>for...of</code> statement iterates over values that the <strong>
-      <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">
-        iterable object</a></strong> defines to be iterated over.</p>
-    </blockquote>
+    <h2>What are <em>enumerable properties</em> of an object?</h2>
 
+    <p>Definition:</p>
 
+    <blockquote>Enumerable properties are those properties whose internal enumerable flag
+      is set to true, which is the default for properties created via simple
+      assignment or via a property initializer (properties defined via
+      Object.defineProperty and such default enumerable to false).</blockquote>
 
     <script type="text/javascript" src="loop.js"></script>
   </body>
