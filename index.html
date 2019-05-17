@@ -108,16 +108,16 @@
           "hello world"[Symbol.iterator]()<br>
           // StringIterator {}<br>
           <br>
-          console.log(myString.propertyIsEnumerable())
+          console.log(myString.propertyIsEnumerable([1]))
           <br>
-          // false
+          // true
         </code>
       </blockquote>
 
-      <p>As demonstrated above, strings have the Symbol.iterator method, but
-        they do not have enumerable properties.
-        Thus, <code>for...of</code> loop, not a <code>for...in</code> loop,
-        should be used to iterate over characters in string.</p>
+      <p>As demonstrated above, strings have the Symbol.iterator method.
+        In addition, strings are also indexed by character. Thus, you can use
+        <code>for...of</code> loop, not a <code>for...in</code> to iterate over
+        characters in a string.</p>
 
     <script type="text/javascript" src="loop.js"></script>
   </body>
