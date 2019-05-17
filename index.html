@@ -44,7 +44,7 @@
 
       <p>TLDR: No, they iterate over different things.</p>
 
-      <p>According to MDN:</p>
+      <p>Per MDN:</p>
 
       <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of">
 
@@ -60,13 +60,14 @@
       </blockquote>
 
     <h2>What is an <em>iterable object</em>?</h2>
-
-      <p>Definition:<p>
-        <blockquote cite="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators#Iterables">
-        An object is an <strong>iterable</strong> if it defines its
+        <p>An object is <strong>iterable</strong> if it defines its
         iteration behavior, such as what values are looped over in a <code>for...of</code>
         construct.
-        </blockquote>
+        </p>
+
+      <p>An object defines its iteration behavior when the object (or one of its
+        prototypes up its prototype chain) has a property with a <code>Symbol.iterator</code>
+        key.</p>
 
       <p>Here are Javascript's built-in Iterables:
           <ul>
@@ -78,14 +79,45 @@
           </ul>
       </p>
 
+      <blockquote><code></code></blockquote>
+
     <h2>What are <em>enumerable properties</em> of an object?</h2>
 
-    <p>Definition:</p>
+      <p>According to MDN, enumerable properties are those <em>properties</em> whose
+        internal enumerable flag is set to true.</p>
 
-    <blockquote>Enumerable properties are those properties whose internal enumerable flag
-      is set to true, which is the default for properties created via simple
-      assignment or via a property initializer (properties defined via
-      Object.defineProperty and such default enumerable to false).</blockquote>
+      <p>This was a little cryptic to me at first glance. How can you tell
+      whether an internal enumerable flag is set to true for a property?</p>
+
+      <p>Well, it turns out that there is a method baked right into the Object.prototype
+      that answers this question. The method is called <code>propertyIsEnumerable()</code>.</p>
+
+      <p>Once again MDN has a great example demonstrating how to use this method to
+      check whether a specified property is enumerable. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/propertyIsEnumerable">Here</a> is
+      a link to MDN's example.</p>
+
+    <h2>Back to My Example</h2>
+
+      <p>Let's take a look back at our example to confirm whether <code>for...of</code>
+        and/or <code>for...in</code> works:</p>
+
+      <blockquote>
+        <code>
+          let myString = "valar morghulis"<br>
+          <br>
+          "hello world"[Symbol.iterator]()<br>
+          // StringIterator {}<br>
+          <br>
+          console.log(myString.propertyIsEnumerable())
+          <br>
+          // false
+        </code>
+      </blockquote>
+
+      <p>As demonstrated above, strings have the Symbol.iterator method, but
+        they do not have enumerable properties.
+        Thus, <code>for...of</code> loop, not a <code>for...in</code> loop,
+        should be used to iterate over characters in string.</p>
 
     <script type="text/javascript" src="loop.js"></script>
   </body>
